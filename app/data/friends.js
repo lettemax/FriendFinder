@@ -1,7 +1,7 @@
 var friends = [
     {
     "name":"Ahmed",
-    "photo":"../../images/ahmed.jpg",
+    "photo":"https://i.pinimg.com/originals/c5/16/63/c51663374e22c09d3ce8262d3b80d4f9.jpg",
     "scores":[
         5,
         1,
@@ -17,7 +17,7 @@ var friends = [
   },
   {
     "name":"Sarah",
-    "photo":"../../images/sarah.jpg",
+    "photo":"https://i.pinimg.com/originals/5c/77/90/5c779090aa3b40210a238c406709e5e7.jpg",
     "scores":[
         3,
         2,
@@ -33,7 +33,7 @@ var friends = [
   },
   {
     "name":"Pablo",
-    "photo":"../../images/pablo.jpg",
+    "photo":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSYMzekYb4RbeWxA8iiO14QplkNJiLFxafTGqerOylWZ8nElr8",
     "scores":[
         5,
         2,
@@ -49,7 +49,7 @@ var friends = [
   },
   {
     "name":"Paul",
-    "photo":"../../images/paul.jpg",
+    "photo":"https://www.jmu.edu/smad/_images/our-people/Anderson-Steve-200px.jpg",
     "scores":[
         4,
         2,
@@ -65,7 +65,7 @@ var friends = [
   },
   {
     "name":"Vanessa",
-    "photo":"../../images/vanessa.jpg",
+    "photo":"https://i.pinimg.com/originals/89/3b/50/893b502097df90f656e57a41bee44362.jpg",
     "scores":[
         3,
         3,

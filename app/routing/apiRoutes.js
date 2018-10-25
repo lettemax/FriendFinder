@@ -33,30 +33,31 @@ module.exports = function(app) {
     // ---------------------------------------------------------------------------
 
     app.post("/api/friends", function(req, res) {
-        //
-        console.log(req.body); 
-        // create var to store current user
+        // set current user variable
         var user = req.body;
+        // log current user
+        console.log("user scores: ", user.scores); 
+        //
         // create var to store most compatible friend
         var mostCompatible = {
-            name: "",
-            photo: "",
-            diff: 100
+            name: "placeholder name",
+            photo: "placeholder img src",
+            diff: 40
         }
-
-        // log first friend to ensure we've gotten friends array
-        console.log(friends[0]);
-
         // loop through the two persons' scores, sum the differences
         for (i=0; i<friends.length; i++) {
             // let friend be the friend at i in the friends array
             var friend = friends[i];
             // let score keep track of difference between friends' answers
             var score = 0;
+            // log friend's and user's names
+            console.log("Comparing: " + user.name + ", " + friend.name);
             // loop through each answer pair
-            for (j=0; j<10; j++) {
+            for (j=0; j<user.scores.length; j++) {
+                // log diff
+                console.log(Math.abs(friend.scores[j]-user.scores[j]));
                 // add each difference to the score
-                score += Math.abs(friend.scores[i]-user.scores[i]);
+                score += Math.abs(friend.scores[j]-user.scores[j]);
             }
             // if this friend is more compatible than incumbent,
             if (score < mostCompatible.diff) {
@@ -64,12 +65,14 @@ module.exports = function(app) {
                 mostCompatible.name = friend.name;
                 mostCompatible.photo = friend.photo;
                 mostCompatible.diff = score;
+                // log mostCompatible
+                console.log("MC: " + mostCompatible.name);
             }
         }
         // Add friend to friends array 
-        friends.push(mostCompatible)
-
+        friends.push(user);
         // return mostCompatible friend
         res.json(mostCompatible);
+        //
     });
 }
