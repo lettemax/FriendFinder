@@ -37,7 +37,10 @@ module.exports = function(app) {
         var user = req.body;
         // log current user
         console.log("user scores: ", user.scores); 
-        //
+        // convert scores to ints
+        for (score in user.scores) {
+            score = parseInt(score);
+        }
         // create var to store most compatible friend
         var mostCompatible = {
             name: "placeholder name",
