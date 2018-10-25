@@ -38,8 +38,8 @@ module.exports = function(app) {
         // log current user
         console.log("user scores: ", user.scores); 
         // convert scores to ints
-        for (score in user.scores) {
-            score = parseInt(score);
+        for (i=0; i<user.scores.length; i++) {
+            user.scores[i] = parseInt(user.scores[i]);
         }
         // create var to store most compatible friend
         var mostCompatible = {
