@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/lettemax/FriendFinder/issues"
   },
-  "homepage": "https://github.com/lettemax/FriendFinder#readme"
+  "homepage": "https://github.com/lettemax/FriendFinder#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "path": "^0.12.7"
+  }
 }

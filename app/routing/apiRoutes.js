@@ -1,59 +1,75 @@
-// Dependencies
-var express = require("express");
-var bodyParser = require("body-parser");
-var path = require("path");
-var friends = require("./data/friends.js");
+// ===============================================================================
+// LOAD DATA
+// We are linking our routes to a series of "data" sources.
+// These data sources hold arrays of information on table-data, waitinglist, etc.
+// ===============================================================================
 
-// Create express app instance.
-var app = express();
+var friendsFile = require("../data/friends.js");
+var friends = friendsFile.friends;
 
-// Sets up the Express app to handle data parsing
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+// ===============================================================================
+// ROUTING
+// ===============================================================================
 
-// Set the port of our application
-// process.env.PORT lets the port be set by Heroku
-var PORT = process.env.PORT || 8080;
+module.exports = function(app) {
+    // API GET Requests
+    // Below code handles when users "visit" a page.
+    // In each of the below cases when a user visits a link
+    // (ex: localhost:PORT/api/admin... they are shown a JSON of the data in the table)
+    // ---------------------------------------------------------------------------
 
-require("./routes/apiRoutes")(app);
-require("./routes/htmlRoutes")(app);
+    // Routes
+    app.get("/api/friends", function(req, res) {
+        // Return json of all friends in friends.js.
+        res.json(friends);
+    });
 
-// Routes
-app.get("/api/friends", function(req, res) {
-    // Return json of all friends in friends.js.
-    res.send(friends.friends);
-});
+    // API POST Requests
+    // Below code handles when a user submits a form and thus submits data to the server.
+    // In each of the below cases, when a user submits form data (a JSON object)
+    // ...the JSON is pushed to the appropriate JavaScript array
+    // (ex. User fills out a reservation request... this data is then sent to the server...
+    // Then the server saves the data to the tableData array)
+    // ---------------------------------------------------------------------------
 
-app.post("/api/friends", function(req, res) {
-    //
-    console.log(req.params);
+    app.post("/api/friends", function(req, res) {
+        //
+        console.log(req.body); 
+        // create var to store current user
+        var user = req.body;
+        // create var to store most compatible friend
+        var mostCompatible = {
+            name: "",
+            photo: "",
+            diff: 100
+        }
 
-    // Add friend to friends array 
-    // friends.friends.push()
+        // log first friend to ensure we've gotten friends array
+        console.log(friends[0]);
 
-})
+        // loop through the two persons' scores, sum the differences
+        for (i=0; i<friends.length; i++) {
+            // let friend be the friend at i in the friends array
+            var friend = friends[i];
+            // let score keep track of difference between friends' answers
+            var score = 0;
+            // loop through each answer pair
+            for (j=0; j<10; j++) {
+                // add each difference to the score
+                score += Math.abs(friend.scores[i]-user.scores[i]);
+            }
+            // if this friend is more compatible than incumbent,
+            if (score < mostCompatible.diff) {
+                // set mostCompatible's values to this friend's values 
+                mostCompatible.name = friend.name;
+                mostCompatible.photo = friend.photo;
+                mostCompatible.diff = score;
+            }
+        }
+        // Add friend to friends array 
+        friends.push(mostCompatible)
 
-function buildCharacterList(result) {
-    // We then begin building out HTML elements for the page.
-    var html = "<h1> Seinfeld Characters </h1>";
-  
-    // Here we begin an unordered list.
-    html += "<ul>";
-
-    // We then use the retrieved records from the database to populate our HTML file.
-    for (var i = 0; i < result.length; i++) {
-      html += "<li><p> Name: " + result[i].name + "</p>";
-      html += "<p>Coolness points: " + result[i].coolness_points + " </p></li>";
-      html += "<p>Attitude: " + result[i].attitude + " </p></li>";
-    }
-
-    // We close our unordered list.
-    html += "</ul>";
-    return html;
+        // return mostCompatible friend
+        res.json(mostCompatible);
+    });
 }
-
-// Start our server so that it can begin listening to client requests.
-app.listen(PORT, function() {
-  // Log (server-side) when our server has started
-  console.log("Server listening on: http://localhost:" + PORT);
-});
