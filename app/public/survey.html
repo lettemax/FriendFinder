@@ -179,7 +179,7 @@
         </div>
         <div class="modal-body">
           <h2 id="match-name"></h2>
-          <img id="match-img" src="" alt="">
+          <img id="match-img" src="https://cdn5.vectorstock.com/i/1000x1000/62/59/default-avatar-photo-placeholder-profile-icon-vector-21666259.jpg" height="200" width="200" alt="photo of your best match">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -235,6 +235,7 @@
         return isValid;
       }
 
+      // log to know if form is valid
       console.log("Valid form? " + validateForm());
 
       // If all required fields are filled
@@ -262,11 +263,8 @@
           // Grab the result from the AJAX post so that the best match's name and photo are displayed.
           $("#match-name").text(data.name);
           $("#match-img").attr("src", data.photo);
-          $("#match-img").attr("style", "max-width: 200px; max-height: 200px");
-
           // Show the modal with the best match
           $("#results-modal").modal("toggle");
-
         });
       } else {
         alert("Please fill out all fields before submitting!");

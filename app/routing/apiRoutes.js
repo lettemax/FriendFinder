@@ -43,8 +43,8 @@ module.exports = function(app) {
         }
         // create var to store most compatible friend
         var mostCompatible = {
-            name: "placeholder name",
-            photo: "placeholder img src",
+            name: "Placeholder name",
+            photo: "Placeholder img src",
             diff: 40
         }
         // loop through the two persons' scores, sum the differences
