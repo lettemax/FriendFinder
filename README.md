@@ -9,7 +9,7 @@ A compatibility-based "FriendFinder" application. Answer ten questions and find 
 
 ![FriendFinder](survey.png)
 
-### Fill out all information and click submit to see your most compatible match:
+### Fill out all information and click "Submit" to see your most compatible match:
 
 ![FriendFinder](match.png)
 
